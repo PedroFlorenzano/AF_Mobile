@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "198664085920",
+    "project_id": "series-tracking-102b2",
+    "storage_bucket": "series-tracking-102b2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:198664085920:android:14648aaaae86e1b5fc04c5",
+        "android_client_info": {
+          "package_name": "com.codingstuff.SeriesTracking"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDj-CkBtEQ-O0-acxxrgM-IS-peoqHRJSI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
