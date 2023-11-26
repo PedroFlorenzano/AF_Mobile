@@ -45,12 +45,13 @@
 
     <TextView
         android:id="@+id/set_due_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="220dp"
+        android:layout_height="34dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="8dp"
         android:drawableRight="@drawable/ic_baseline_calendar_today_24"
         android:drawablePadding="8dp"
+        android:gravity="center"
         android:text="Data que pretende assistir"
         android:textColor="@color/green_blue"
         android:textSize="16sp"
@@ -61,41 +62,22 @@
         android:id="@+id/save_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="40dp"
         android:text="Salvar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/task_edittext" />
 
-    <Button
-        android:id="@+id/ep_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:layout_marginEnd="8dp"
-        android:text="+ EP"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/save_btn" />
-
     <EditText
         android:id="@+id/edtUltimoEp"
-        android:layout_width="118dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtTemporada" />
-
-    <TextView
-        android:id="@+id/txtEp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="218dp"
+        android:layout_height="40dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="8dp"
-        android:text="Episódio atual:"
+        android:ems="10"
+        android:hint="Episódio Atual"
+        android:inputType="numberDecimal"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtTemporada" />
 

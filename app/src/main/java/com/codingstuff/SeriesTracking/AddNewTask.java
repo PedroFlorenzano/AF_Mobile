@@ -39,6 +39,12 @@ public class AddNewTask  extends BottomSheetDialogFragment {
     private TextView setDueDate;
     private EditText mTaskEdit;
     private Button mSaveBtn;
+
+    private EditText mPlataforma;
+
+    private EditText mTemporada;
+
+    private EditText mEpisodioAtual;
     private FirebaseFirestore firestore;
     private Context context;
     private String dueDate = "";
@@ -63,6 +69,9 @@ public class AddNewTask  extends BottomSheetDialogFragment {
         setDueDate = view.findViewById(R.id.set_due_tv);
         mTaskEdit = view.findViewById(R.id.task_edittext);
         mSaveBtn = view.findViewById(R.id.save_btn);
+        mPlataforma = view.findViewById(R.id.edtPlataforma);
+        mTemporada = view.findViewById(R.id.edtTemporada);
+        mEpisodioAtual = view.findViewById(R.id.edtUltimoEp);
 
         firestore = FirebaseFirestore.getInstance();
 
@@ -136,6 +145,9 @@ public class AddNewTask  extends BottomSheetDialogFragment {
             public void onClick(View v) {
 
                 String task = mTaskEdit.getText().toString();
+                String plataforma = mPlataforma.getText().toString();
+                String temporada = mTemporada.getText().toString();
+                String episodioAtual = mEpisodioAtual.getText().toString();
 
                 if (finalIsUpdate){
                     firestore.collection("task").document(id).update("task" , task , "due" , dueDate);
@@ -151,6 +163,9 @@ public class AddNewTask  extends BottomSheetDialogFragment {
 
                         taskMap.put("task", task);
                         taskMap.put("due", dueDate);
+                        taskMap.put("plataforma", plataforma);
+                        taskMap.put("temporada", temporada);
+                        taskMap.put("episodioAtual", episodioAtual);
                         taskMap.put("status", 0);
                         taskMap.put("time", FieldValue.serverTimestamp());
 
