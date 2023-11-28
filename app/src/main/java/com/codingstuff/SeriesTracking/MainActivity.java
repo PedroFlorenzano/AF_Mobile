@@ -24,6 +24,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
+//Link vídeo: https://www.youtube.com/watch?v=zmzfD97hoVM&ab_channel=PedroH.Damaso
 public class MainActivity extends AppCompatActivity implements OnDialogCloseListner{
 
     private RecyclerView recyclerView;
