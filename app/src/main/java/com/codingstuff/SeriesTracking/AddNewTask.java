@@ -88,16 +88,18 @@ public class AddNewTask  extends BottomSheetDialogFragment {
         if (bundle != null){
             isUpdate = true;
             String task = bundle.getString("task");
+            String temporada = bundle.getString("temporada");
+            String plataforma = bundle.getString("plataforma");
+            String episodioAtual = bundle.getString("episodioAtual");
             id = bundle.getString("id");
             dueDateUpdate = bundle.getString("due");
 
             mTaskEdit.setText(task);
+            mPlataforma.setText(plataforma);
+            mTemporada.setText(temporada);
+            mEpisodioAtual.setText(episodioAtual);
             setDueDate.setText(dueDateUpdate);
-
-            if (task.length() > 0){
-                mSaveBtn.setEnabled(false);
-                mSaveBtn.setBackgroundColor(Color.GRAY);
-            }
+            
         }
 
         mTaskEdit.addTextChangedListener(new TextWatcher() {
@@ -228,6 +230,7 @@ public class AddNewTask  extends BottomSheetDialogFragment {
 
                                 taskRef.update(updateData)
                                         .addOnSuccessListener(aVoid -> {
+                                            mEpisodioAtual.setText(episodioAtual);
                                             Toast.makeText(context, "Episódio incrementado com sucesso", Toast.LENGTH_SHORT).show();
                                         })
                                         .addOnFailureListener(e -> {

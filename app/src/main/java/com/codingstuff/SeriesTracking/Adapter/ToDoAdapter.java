@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -55,6 +56,9 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder> 
         Bundle bundle = new Bundle();
         bundle.putString("task" , toDoModel.getTask());
         bundle.putString("due" , toDoModel.getDue());
+        bundle.putString("plataforma" , toDoModel.getPlataforma());
+        bundle.putString("episodioAtual" , toDoModel.getEpisodioAtual());
+        bundle.putString("temporada" , toDoModel.getTemporada());
         bundle.putString("id" , toDoModel.TaskId);
 
         AddNewTask addNewTask = new AddNewTask();
@@ -68,6 +72,9 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder> 
         holder.mCheckBox.setText(toDoModel.getTask());
 
         holder.mDueDateTv.setText("Ver no dia " + toDoModel.getDue());
+        holder.mTemporada.setText("Temp " + toDoModel.getTemporada());
+        holder.mEpisodioAtual.setText("EP" + toDoModel.getEpisodioAtual());
+        holder.mPlataforma.setText("Local " + toDoModel.getPlataforma());
 
         holder.mCheckBox.setChecked(toBoolean(toDoModel.getStatus()));
 
@@ -96,6 +103,9 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder> 
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView mDueDateTv;
+        TextView mPlataforma;
+        TextView mTemporada;
+        TextView mEpisodioAtual;
         CheckBox mCheckBox;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -103,6 +113,9 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder> 
 
             mDueDateTv = itemView.findViewById(R.id.due_date_tv);
             mCheckBox = itemView.findViewById(R.id.mcheckbox);
+            mPlataforma = itemView.findViewById(R.id.Plataforma);
+            mTemporada = itemView.findViewById(R.id.temporada);
+            mEpisodioAtual = itemView.findViewById(R.id.episodio);
 
         }
     }
