@@ -68,6 +68,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/task_edittext" />
 
+    <Button
+        android:id="@+id/incrementEp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="40dp"
+        android:text="+ EP"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/save_btn" />
+
     <EditText
         android:id="@+id/edtUltimoEp"
         android:layout_width="218dp"

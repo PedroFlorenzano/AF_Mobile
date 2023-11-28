@@ -19,12 +19,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.codingstuff.SeriesTracking.Adapter.ToDoAdapter;
 import com.codingstuff.SeriesTracking.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -34,11 +37,14 @@ import java.util.Map;
 
 public class AddNewTask  extends BottomSheetDialogFragment {
 
+    private ToDoAdapter adapter;
     public static final String TAG = "AddNewTask";
 
     private TextView setDueDate;
     private EditText mTaskEdit;
     private Button mSaveBtn;
+
+    private Button mUpdateEpBtn;
 
     private EditText mPlataforma;
 
@@ -69,6 +75,7 @@ public class AddNewTask  extends BottomSheetDialogFragment {
         setDueDate = view.findViewById(R.id.set_due_tv);
         mTaskEdit = view.findViewById(R.id.task_edittext);
         mSaveBtn = view.findViewById(R.id.save_btn);
+        mUpdateEpBtn = view.findViewById(R.id.incrementEp);
         mPlataforma = view.findViewById(R.id.edtPlataforma);
         mTemporada = view.findViewById(R.id.edtTemporada);
         mEpisodioAtual = view.findViewById(R.id.edtUltimoEp);
@@ -187,6 +194,96 @@ public class AddNewTask  extends BottomSheetDialogFragment {
                     }
                 }
                 dismiss();
+            }
+        });
+
+        mSaveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String task = mTaskEdit.getText().toString();
+                String plataforma = mPlataforma.getText().toString();
+                String temporada = mTemporada.getText().toString();
+                String episodioAtual = mEpisodioAtual.getText().toString();
+
+                if (finalIsUpdate){
+                    firestore.collection("task").document(id).update("task" , task , "due" , dueDate);
+                    Toast.makeText(context, "Task Updated", Toast.LENGTH_SHORT).show();
+
+                }
+                else {
+                    if (task.isEmpty()) {
+                        Toast.makeText(context, "Empty task not Allowed !!", Toast.LENGTH_SHORT).show();
+                    } else {
+
+                        Map<String, Object> taskMap = new HashMap<>();
+
+                        taskMap.put("task", task);
+                        taskMap.put("due", dueDate);
+                        taskMap.put("plataforma", plataforma);
+                        taskMap.put("temporada", temporada);
+                        taskMap.put("episodioAtual", episodioAtual);
+                        taskMap.put("status", 0);
+                        taskMap.put("time", FieldValue.serverTimestamp());
+
+                        firestore.collection("task").add(taskMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentReference> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(context, "Task Saved", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(context, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }
+                dismiss();
+            }
+        });
+
+        mUpdateEpBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                if (!id.isEmpty()) {
+                    DocumentReference taskRef = firestore.collection("task").document(id);
+                    taskRef.get().addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                String episodioAtualFounded = document.getString("episodioAtual");
+
+                                Integer episodioAtualNumber = Integer.valueOf(episodioAtualFounded);
+                                episodioAtualNumber = episodioAtualNumber + 1;
+
+                                String episodioAtual = String.valueOf(episodioAtualNumber);
+
+                                Map<String, Object> updateData = new HashMap<>();
+                                updateData.put("episodioAtual", episodioAtual);
+
+                                taskRef.update(updateData)
+                                        .addOnSuccessListener(aVoid -> {
+                                            Toast.makeText(context, "Episódio incrementado com sucesso", Toast.LENGTH_SHORT).show();
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            Toast.makeText(context, "Erro ao incrementar episódio: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        });
+                            } else {
+                                Toast.makeText(context, "Documento não encontrado", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(context, "Erro ao obter dados: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    Toast.makeText(context, "ID inválido", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

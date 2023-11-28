@@ -2,7 +2,7 @@ package com.codingstuff.SeriesTracking.Model;
 
 public class ToDoModel extends TaskId {
 
-    private String task , due;
+    private String task , due, episodioAtual;
     private int status;
 
     public String getTask() {
@@ -16,4 +16,6 @@ public class ToDoModel extends TaskId {
     public int getStatus() {
         return status;
     }
+
+    public String getEpisodioAtual(){return episodioAtual;}
 }
