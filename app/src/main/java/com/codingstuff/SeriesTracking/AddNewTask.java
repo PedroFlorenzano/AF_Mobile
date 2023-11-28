@@ -156,58 +156,17 @@ public class AddNewTask  extends BottomSheetDialogFragment {
                 String temporada = mTemporada.getText().toString();
                 String episodioAtual = mEpisodioAtual.getText().toString();
 
-                if (finalIsUpdate){
-                    firestore.collection("task").document(id).update("task" , task , "due" , dueDate);
-                    Toast.makeText(context, "Task Updated", Toast.LENGTH_SHORT).show();
-
-                }
-                else {
-                    if (task.isEmpty()) {
-                        Toast.makeText(context, "Empty task not Allowed !!", Toast.LENGTH_SHORT).show();
-                    } else {
-
-                        Map<String, Object> taskMap = new HashMap<>();
-
-                        taskMap.put("task", task);
-                        taskMap.put("due", dueDate);
-                        taskMap.put("plataforma", plataforma);
-                        taskMap.put("temporada", temporada);
-                        taskMap.put("episodioAtual", episodioAtual);
-                        taskMap.put("status", 0);
-                        taskMap.put("time", FieldValue.serverTimestamp());
-
-                        firestore.collection("task").add(taskMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentReference> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(context, "Task Saved", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(context, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                }
-                dismiss();
-            }
-        });
-
-        mSaveBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String task = mTaskEdit.getText().toString();
-                String plataforma = mPlataforma.getText().toString();
-                String temporada = mTemporada.getText().toString();
-                String episodioAtual = mEpisodioAtual.getText().toString();
+                Map<String, Object> updateSerie = new HashMap<>();
+                updateSerie.put("task", task);
+                updateSerie.put("due", dueDate);
+                updateSerie.put("plataforma", plataforma);
+                updateSerie.put("temporada", temporada);
+                updateSerie.put("episodioAtual", episodioAtual);
+                updateSerie.put("status", 0);
+                updateSerie.put("time", FieldValue.serverTimestamp());
 
                 if (finalIsUpdate){
-                    firestore.collection("task").document(id).update("task" , task , "due" , dueDate);
+                    firestore.collection("task").document(id).update(updateSerie);
                     Toast.makeText(context, "Task Updated", Toast.LENGTH_SHORT).show();
 
                 }
